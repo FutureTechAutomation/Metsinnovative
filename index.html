@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MetsInnovative – Premium 3D Printed Parts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #ff5c1a;
+    --accent2: #ff8c42;
+    --text: #f0eff5;
+    --muted: #7a7a99;
+    --card: #14141e;
+    --green: #22c55e;
+    --whatsapp: #25D366;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: .4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: rgba(10,10,15,.92); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 68px; }
+  .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 1.7rem; font-weight: 900; letter-spacing: .04em; color: var(--text); text-decoration: none; display: flex; align-items: center; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: .9rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: .45rem 1.2rem; border-radius: 4px; font-weight: 600 !important; transition: background .2s !important; }
+  .nav-cta:hover { background: var(--accent2) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 26px; height: 2px; background: var(--text); border-radius: 2px; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 2.5rem 80px; position: relative; overflow: hidden; }
+  .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,92,26,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,92,26,.04) 1px, transparent 1px); background-size: 60px 60px; animation: gridMove 20s linear infinite; }
+  @keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(60px); } }
+  .hero-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,92,26,.18) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(255,92,26,.12); border: 1px solid rgba(255,92,26,.3); color: var(--accent2); font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .35rem 1rem; border-radius: 100px; margin-bottom: 1.8rem; animation: fadeUp .6s ease both; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 900; line-height: .95; letter-spacing: -.01em; text-transform: uppercase; animation: fadeUp .7s .1s ease both; }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero-sub { margin-top: 1.5rem; font-size: 1rem; color: var(--muted); line-height: 1.7; animation: fadeUp .7s .2s ease both; }
+  .hero-actions { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp .7s .3s ease both; }
+  .btn-primary { background: var(--accent); color: #fff; padding: .8rem 2rem; border-radius: 5px; font-weight: 700; font-size: 1rem; text-decoration: none; letter-spacing: .04em; transition: background .2s, transform .15s; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-outline { border: 1px solid var(--border); color: var(--text); padding: .8rem 2rem; border-radius: 5px; font-weight: 600; font-size: 1rem; text-decoration: none; letter-spacing: .04em; transition: border-color .2s, transform .15s; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hero-stats { margin-top: 3rem; display: flex; gap: 2.5rem; animation: fadeUp .7s .4s ease both; }
+  .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+  .stat-label { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO SEARCH PANEL */
+  .hero-search-panel { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; animation: fadeUp .8s .2s ease both; backdrop-filter: blur(10px); }
+  .search-panel-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.2rem; }
+  .search-panel-icon { width: 42px; height: 42px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.3rem; }
+  .search-panel-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .search-panel-sub { font-size: .75rem; color: var(--muted); }
+  .search-panel-divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+  .search-panel-label { font-size: .72rem; color: var(--muted); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .6rem; }
+  .search-input-row { display: flex; gap: .5rem; margin-bottom: 1rem; }
+  .search-input-row input { flex: 1; background: rgba(255,255,255,.07); border: 1px solid var(--border); color: var(--text); padding: .72rem 1rem; border-radius: 8px; font-size: .9rem; font-family: 'Barlow', sans-serif; outline: none; transition: border-color .2s; }
+  .search-input-row input:focus { border-color: var(--accent); }
+  .search-input-row input::placeholder { color: var(--muted); }
+  .search-btn { background: var(--accent); color: #fff; border: none; padding: .72rem 1.2rem; border-radius: 8px; font-size: .9rem; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; cursor: pointer; transition: background .2s; white-space: nowrap; letter-spacing: .04em; }
+  .search-btn:hover { background: var(--accent2); }
+  .quick-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.4rem; }
+  .quick-tag { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: .28rem .75rem; border-radius: 100px; font-size: .75rem; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all .2s; }
+  .quick-tag:hover { border-color: var(--accent); color: var(--accent); }
+  .search-panel-note { display: flex; align-items: flex-start; gap: .6rem; }
+  .search-panel-note p { font-size: .78rem; color: var(--muted); line-height: 1.6; margin: 0; }
+  .search-panel-note a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .search-panel-note a:hover { color: var(--accent2); }
+
+  /* Hero 2-col responsive */
+  @media (max-width: 1000px) {
+    .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-glow { left: 60%; }
+  }
+
+  /* SECTION */
+  section { padding: 100px 2.5rem; position: relative; }
+  .section-label { font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: .8rem; }
+  .section-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 1rem; }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 520px; }
+
+  /* TICKER */
+  .ticker { background: var(--accent); padding: .7rem 0; overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-flex; animation: ticker 25s linear infinite; }
+  .ticker-inner span { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #fff; padding: 0 2.5rem; }
+  .ticker-inner span::after { content: '•'; margin-left: 2.5rem; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* FILTER + SEARCH */
+  .filter-bar { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .filter-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: .45rem 1.2rem; border-radius: 100px; font-size: .85rem; font-weight: 500; cursor: pointer; transition: all .2s; letter-spacing: .04em; }
+  .filter-btn:hover, .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .search-wrap { position: relative; max-width: 420px; margin-bottom: 2rem; }
+  .search-wrap input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: .7rem 1rem .7rem 2.8rem; border-radius: 8px; font-size: .95rem; font-family: 'Barlow', sans-serif; outline: none; transition: border-color .2s; }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap svg { position: absolute; left: .9rem; top: 50%; transform: translateY(-50%); color: var(--muted); }
+
+  /* PRODUCT GRID */
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s; cursor: pointer; display: flex; flex-direction: column; }
+  .product-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 16px 48px rgba(255,92,26,.15); }
+  .product-thumb { aspect-ratio: 4/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
+  .product-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,92,26,.06) 0%, transparent 60%); pointer-events: none; z-index: 2; }
+  .product-thumb .thumb-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .product-thumb .thumb-emoji { position: relative; z-index: 3; }
+  .badge-new    { position: absolute; top: .8rem; right: .8rem; background: var(--accent);  color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .08em; padding: .2rem .6rem; border-radius: 4px; text-transform: uppercase; z-index: 4; }
+  .badge-custom { position: absolute; top: .8rem; right: .8rem; background: #7c3aed;         color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .08em; padding: .2rem .6rem; border-radius: 4px; text-transform: uppercase; z-index: 4; }
+  .badge-avail  { position: absolute; top: .8rem; left: .8rem;  background: var(--green);   color: #fff; font-size: .65rem; font-weight: 700; letter-spacing: .06em; padding: .18rem .55rem; border-radius: 4px; text-transform: uppercase; z-index: 4; }
+  .product-info { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+  .product-cat  { font-size: .72rem; color: var(--accent); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .4rem; }
+  .product-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 700; line-height: 1.2; margin-bottom: .5rem; letter-spacing: .02em; }
+  .product-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; flex: 1; margin-bottom: 1rem; }
+  .product-material { font-size: .75rem; color: var(--muted); margin-bottom: .8rem; display: flex; gap: .4rem; flex-wrap: wrap; }
+  .mat-tag { background: var(--surface2); border: 1px solid var(--border); padding: .15rem .5rem; border-radius: 100px; font-size: .7rem; letter-spacing: .04em; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .product-price { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--accent); }
+  .price-note { font-size: .7rem; color: var(--muted); font-weight: 400; }
+  .btn-enquire { background: var(--accent); color: #fff; border: none; padding: .5rem 1.1rem; border-radius: 6px; font-size: .85rem; font-weight: 700; cursor: pointer; letter-spacing: .04em; transition: background .2s; font-family: 'Barlow', sans-serif; }
+  .btn-enquire:hover { background: var(--accent2); }
+  #product-count { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; }
+
+  /* HOW IT WORKS */
+  #how { background: var(--surface); }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 4rem; }
+  .step { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .step-num { font-family: 'Barlow Condensed', sans-serif; font-size: 4rem; font-weight: 900; color: rgba(255,92,26,.2); line-height: 1; }
+  .step-icon { font-size: 2rem; }
+  .step h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .step p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+  /* MATERIALS */
+  .materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 3rem; }
+  .material-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: border-color .2s; }
+  .material-card:hover { border-color: var(--accent); }
+  .mat-icon { font-size: 2rem; margin-bottom: .8rem; }
+  .mat-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .mat-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+  /* CUSTOM */
+  #custom { background: var(--surface); }
+  .custom-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .custom-visual { background: var(--card); border: 1px solid var(--border); border-radius: 16px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 8rem; position: relative; overflow: hidden; }
+  .custom-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 70%, rgba(255,92,26,.15) 0%, transparent 60%); }
+
+  /* CONTACT */
+  #contact { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-item-icon { background: rgba(255,92,26,.12); border: 1px solid rgba(255,92,26,.2); width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .contact-item h4 { font-size: .85rem; font-weight: 600; margin-bottom: .3rem; }
+  .contact-item p { font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .enquiry-form { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+  .form-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+  .form-group label { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .form-group input, .form-group select, .form-group textarea { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: .7rem 1rem; border-radius: 8px; font-size: .95rem; font-family: 'Barlow', sans-serif; outline: none; transition: border-color .2s; resize: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group select option { background: var(--surface2); }
+  .form-submit { width: 100%; background: var(--accent); color: #fff; border: none; padding: .9rem; border-radius: 8px; font-size: 1rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; transition: background .2s; margin-top: .5rem; }
+  .form-submit:hover { background: var(--accent2); }
+
+  /* WHATSAPP */
+  .whatsapp-float { position: fixed; bottom: 2rem; right: 2rem; background: var(--whatsapp); color: #fff; width: 62px; height: 62px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 28px rgba(37,211,102,.4); z-index: 9999; text-decoration: none; transition: transform .25s; animation: bounce 2s ease infinite; }
+  .whatsapp-float:hover { transform: scale(1.12); }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .whatsapp-float svg { width: 32px; height: 32px; }
+  .wa-tooltip { position: fixed; bottom: 5rem; right: 5.5rem; background: var(--whatsapp); color: #fff; padding: .5rem 1rem; border-radius: 8px; font-size: .85rem; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 9998; }
+  .whatsapp-float:hover + .wa-tooltip { opacity: 1; }
+
+  /* FOOTER */
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 4rem 2.5rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
+  .footer-col a { display: block; font-size: .9rem; color: var(--muted); text-decoration: none; margin-bottom: .6rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: .85rem; color: var(--muted); }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(8px); z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; max-width: 540px; width: 100%; transform: translateY(20px); transition: transform .25s; position: relative; }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; line-height: 1; transition: color .2s; }
+  .modal-close:hover { color: var(--accent); }
+  .modal h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 7rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--green); color: #fff; padding: .8rem 1.5rem; border-radius: 8px; font-weight: 600; font-size: .95rem; opacity: 0; pointer-events: none; transition: all .3s; z-index: 9999; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* MOBILE NAV */
+  .mobile-nav { display: none; position: fixed; inset: 68px 0 0 0; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; z-index: 998; }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 700; text-transform: uppercase; color: var(--text); text-decoration: none; letter-spacing: .1em; transition: color .2s; }
+  .mobile-nav a:hover { color: var(--accent); }
+
+  /* HOME DECOR */
+  #homedecor { background: var(--surface); padding: 100px 2.5rem; position: relative; overflow: hidden; }
+  #homedecor::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,92,26,.08) 0%, transparent 70%); pointer-events: none; }
+  .decor-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 3.5rem; }
+  .decor-masonry { columns: 4; column-gap: 1.2rem; }
+  @media(max-width:1100px){ .decor-masonry { columns: 3; } }
+  @media(max-width:700px){ .decor-masonry { columns: 2; } }
+  @media(max-width:420px){ .decor-masonry { columns: 1; } }
+  .decor-item { break-inside: avoid; margin-bottom: 1.2rem; border-radius: 14px; overflow: hidden; position: relative; background: var(--card); border: 1px solid var(--border); cursor: pointer; transition: transform .3s, box-shadow .3s; }
+  .decor-item:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 50px rgba(255,92,26,.18); border-color: var(--accent); }
+  .decor-placeholder { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; background: var(--surface2); color: var(--muted); }
+  .decor-placeholder .dp-icon { font-size: 3rem; }
+  .decor-placeholder .dp-label { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+  .decor-item img { width: 100%; display: block; object-fit: cover; transition: transform .4s; }
+  .decor-item:hover img { transform: scale(1.06); }
+  .decor-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 50%); opacity: 0; transition: opacity .3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
+  .decor-item:hover .decor-overlay { opacity: 1; }
+  .decor-overlay h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #fff; margin-bottom: .3rem; }
+  .decor-overlay span { font-size: .78rem; color: var(--accent2); font-weight: 600; }
+  .decor-overlay .decor-wa-btn { margin-top: .7rem; background: var(--whatsapp); color: #fff; border: none; padding: .45rem .9rem; border-radius: 6px; font-size: .82rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; font-family: 'Barlow', sans-serif; width: fit-content; transition: opacity .2s; }
+  .decor-tag { position: absolute; top: .8rem; left: .8rem; background: rgba(255,92,26,.9); color: #fff; font-size: .68rem; font-weight: 700; letter-spacing: .08em; padding: .18rem .55rem; border-radius: 4px; text-transform: uppercase; z-index: 2; }
+  .decor-upload-hint { background: rgba(255,92,26,.06); border: 1.5px dashed rgba(255,92,26,.35); border-radius: 14px; padding: 2rem; text-align: center; margin-top: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: .8rem; }
+  .decor-upload-hint h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; text-transform: uppercase; }
+  .decor-upload-hint p { font-size: .9rem; color: var(--muted); }
+
+  /* LIGHTBOX */
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity .25s; flex-direction: column; gap: 1.2rem; }
+  .lightbox.open { opacity: 1; pointer-events: all; }
+  .lightbox img { max-width: 100%; max-height: 70vh; border-radius: 12px; object-fit: contain; box-shadow: 0 20px 80px rgba(0,0,0,.6); }
+  .lightbox-info { text-align: center; }
+  .lightbox-info h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .3rem; }
+  .lightbox-info p { color: var(--muted); font-size: .9rem; }
+  .lightbox-close { position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; opacity: .7; transition: opacity .2s; }
+  .lightbox-close:hover { opacity: 1; }
+  .lightbox-wa { background: var(--whatsapp); color: #fff; padding: .7rem 1.8rem; border-radius: 8px; font-weight: 700; font-size: .95rem; text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .custom-inner, .contact-grid { grid-template-columns: 1fr; }
+    .custom-visual { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 70px 1.2rem; }
+    nav { padding: 0 1.2rem; }
+    .hero { padding: 100px 1.2rem 60px; }
+    .hero-stats { gap: 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#"><span>Mets</span>Innovative</a>
+  <div class="nav-links">
+    <a href="#products">Products</a>
+    <a href="#homedecor">Home Decor</a>
+    <a href="#how">How It Works</a>
+    <a href="#materials">Materials</a>
+    <a href="#custom">Custom Parts</a>
+    <a href="#contact" class="nav-cta">Get Quote</a>
+  </div>
+  <div class="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#products" onclick="toggleMobileNav()">Products</a>
+  <a href="#homedecor" onclick="toggleMobileNav()">Home Decor</a>
+  <a href="#how" onclick="toggleMobileNav()">How It Works</a>
+  <a href="#materials" onclick="toggleMobileNav()">Materials</a>
+  <a href="#custom" onclick="toggleMobileNav()">Custom</a>
+  <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+
+    <!-- LEFT: Text Content -->
+    <div>
+      <div class="hero-badge">🖨️ Powered by Mets Inovative</div>
+      <h1>Premium<br><em>3D Printed</em><br>Parts On Demand</h1>
+      <p class="hero-sub">From Bambu Studio models to fully custom designs — we print, you build. PLA, PETG, ABS, TPU and more, delivered anywhere in India.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">Browse Products</a>
+        <a href="#custom" class="btn-outline">Custom Order</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">100+</div><div class="stat-label">Products Available</div></div>
+        <div><div class="stat-num">6+</div><div class="stat-label">Materials</div></div>
+        <div><div class="stat-num">24h</div><div class="stat-label">Fast Turnaround</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: MakerWorld Search Panel -->
+    <div class="hero-search-panel">
+      <div class="search-panel-header">
+        <div class="search-panel-icon">🖨️</div>
+        <div>
+          <div class="search-panel-title">Search 3D Models</div>
+          <div class="search-panel-sub">Powered by MakerWorld</div>
+        </div>
+      </div>
+      <hr class="search-panel-divider">
+      <div class="search-panel-label">What do you want to print?</div>
+      <div class="search-input-row">
+        <input
+          type="text"
+          id="mwSearch"
+          placeholder="e.g. vase, ESP32 case, drone arm…"
+          onkeydown="if(event.key==='Enter')searchMakerWorld()"
+        >
+        <button class="search-btn" onclick="searchMakerWorld()">Search →</button>
+      </div>
+      <div class="search-panel-label">Popular searches</div>
+      <div class="quick-tags">
+        <button class="quick-tag" onclick="quickSearch('geometric vase')">🏺 Vase</button>
+        <button class="quick-tag" onclick="quickSearch('ESP32 enclosure')">📦 ESP32 Case</button>
+        <button class="quick-tag" onclick="quickSearch('drone frame')">🚁 Drone</button>
+        <button class="quick-tag" onclick="quickSearch('wall art decor')">🖼️ Wall Art</button>
+        <button class="quick-tag" onclick="quickSearch('robot arm')">🦾 Robot Arm</button>
+        <button class="quick-tag" onclick="quickSearch('raspberry pi case')">🍓 Pi Case</button>
+        <button class="quick-tag" onclick="quickSearch('low poly figurine')">🦊 Figurine</button>
+        <button class="quick-tag" onclick="quickSearch('planter pot')">🌵 Planter</button>
+      </div>
+      <hr class="search-panel-divider">
+      <div class="search-panel-note">
+        <div style="font-size:1.2rem;flex-shrink:0;">💡</div>
+        <p>Find any model on <span style="color:var(--accent2);font-weight:600;">MakerWorld</span> — then <a href="#contact">Send Screenshort with us</a> to get it printed &amp; delivered anywhere in India.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>PLA Filament</span><span>PETG Parts</span><span>ABS Enclosures</span><span>TPU Flexible</span><span>Fast Delivery</span><span>Custom Design</span><span>Bambu Lab Quality</span><span>Made In India</span><span>Free Consultation</span><span>IoT Enclosures</span><span>Drone Parts</span><span>Robot Frames</span>
+    <span>PLA Filament</span><span>PETG Parts</span><span>ABS Enclosures</span><span>TPU Flexible</span><span>Fast Delivery</span><span>Custom Design</span><span>Bambu Lab Quality</span><span>Made In India</span><span>Free Consultation</span><span>IoT Enclosures</span><span>Drone Parts</span><span>Robot Frames</span>
+  </div>
+</div>
+
+<!-- HOME DECOR GALLERY -->
+<section id="homedecor">
+  <div class="decor-header">
+    <div>
+      <div class="section-label">3D Printed Beauty</div>
+      <div class="section-title">Home <span style="color:var(--accent)">Decorative</span><br>Parts</div>
+      <p class="section-sub" style="margin-top:.8rem;">Transform your living space with hand-finished 3D printed décor — vases, wall art, lamps, sculptures and more. All customizable in color and size.</p>
+    </div>
+    <a href="https://wa.me/917385888199?text=Hi%20MetsInnovative%2C%20I%20want%20to%20order%20a%20home%20decorative%203D%20printed%20part." target="_blank" class="btn-primary" style="white-space:nowrap;align-self:center;">💬 Order Custom Decor</a>
+  </div>
+  <div class="decor-masonry">
+
+    <div class="decor-item" onclick="openLightbox('images/geo-vase.jpg','Geometric Vase','Low-poly geometric vase — modern desk or shelf décor. Available in 15+ colors.')">
+      <span class="decor-tag">🔥 Bestseller</span>
+      <img src="images/geo-vase.jpg" alt="Geometric Vase" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:280px;display:none;"><div class="dp-icon">🏺</div><div class="dp-label">Geometric Vase</div></div>
+      <div class="decor-overlay"><h4>Geometric Vase</h4><span>₹180 onwards • PLA / PETG</span><button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Geometric Vase')">💬 Enquire</button></div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/organic-vase.jpg','Organic Lattice Vase','Open-weave organic lattice vase. Works as a fruit bowl, key holder or decorative centerpiece. Available in multiple colors.')">
+      <span class="decor-tag">🌿 Popular</span>
+      <img src="images/organic-vase.jpg" alt="Organic Lattice Vase" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:210px;display:none;"><div class="dp-icon">🏺</div><div class="dp-label">Organic Lattice Vase</div></div>
+      <div class="decor-overlay">
+        <h4>Organic Lattice Vase</h4>
+        <span>₹450 onwards • PLA / PETG</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Organic Lattice Vase')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/lowpoly-owl.jpg','Low Poly Owl Figurine','Striking low-poly owl sculpture in matte black finish. Modern geometric design — perfect shelf or desk statement piece.')">
+      <span class="decor-tag">🔥 Bestseller</span>
+      <img src="images/lowpoly-owl.jpg" alt="Low Poly Owl" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:230px;display:none;"><div class="dp-icon">🦉</div><div class="dp-label">Low Poly Owl</div></div>
+      <div class="decor-overlay">
+        <h4>Low Poly Owl Figurine</h4>
+        <span>₹420 onwards • PLA</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Low Poly Owl Figurine')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/easter-egg-light.jpg','Easter Egg Tealight Holder','Elegant egg-shaped tealight holder with delicate hole pattern. Creates beautiful warm light glow. Comes in smooth and textured versions with beaded decorative base.')">
+      <span class="decor-tag">✨ New</span>
+      <img src="images/easter-egg-light.jpg" alt="Easter Egg Tealight Holder" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:260px;display:none;"><div class="dp-icon">🥚</div><div class="dp-label">Easter Egg Tealight Holder</div></div>
+      <div class="decor-overlay">
+        <h4>Easter Egg Tealight Holder</h4>
+        <span>₹800 onwards • PLA</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Easter Egg Tealight Holder')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/daisy-flowers.jpg','Daisies – Modular Flowers','Realistic modular daisy flowers with stem and vase. Print in white PLA for a lifelike look. Mix and match stem lengths.')">
+      <span class="decor-tag">🔥 Bestseller</span>
+      <img src="images/daisy-flowers.jpg" alt="Daisies Modular Flowers" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:280px;display:none;"><div class="dp-icon">🌼</div><div class="dp-label">Daisies – Modular Flowers</div></div>
+      <div class="decor-overlay">
+        <h4>Daisies – Modular Flowers</h4>
+        <span>₹150 onwards • PLA</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Daisies Modular Flowers')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/lowpoly-elephant.jpg','Modern Low Poly Elephant','Stunning geometric low-poly elephant sculpture. A bold statement piece for shelves, desks or gifting.')">
+      <span class="decor-tag">✨ New</span>
+      <img src="images/lowpoly-elephant.jpg" alt="Modern Low Poly Elephant" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:230px;display:none;"><div class="dp-icon">🐘</div><div class="dp-label">Modern Low Poly Elephant</div></div>
+      <div class="decor-overlay">
+        <h4>Modern Low Poly Elephant</h4>
+        <span>₹200 onwards • PLA</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Modern Low Poly Elephant')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/arch-home-set.jpg','Decoration Set – Arch & Home','Complete boho décor set: arch frames, ribbed vase, tealight holder and HOME lettering. Perfect centerpiece tray.')">
+      <span class="decor-tag">🌿 Popular</span>
+      <img src="images/arch-home-set.jpg" alt="Decoration Set Arch and Home" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:260px;display:none;"><div class="dp-icon">🏠</div><div class="dp-label">Arch & Home Décor Set</div></div>
+      <div class="decor-overlay">
+        <h4>Arch & Home Décor Set</h4>
+        <span>₹1400 onwards • PLA / PETG</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Decoration Set Arch and Home')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/rottweiler-bust.jpg','Rottweiler DJ Bust – Gentleman','Unique Rottweiler bust in suit and tie with DJ headphones. Bronze-finish PLA. Perfect for music studios, gaming setups or gifting.')">
+      <span class="decor-tag">🎁 Gift Idea</span>
+      <img src="images/rottweiler-bust.jpg" alt="Rottweiler DJ Bust" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:300px;display:none;"><div class="dp-icon">🐶</div><div class="dp-label">Rottweiler DJ Bust</div></div>
+      <div class="decor-overlay">
+        <h4>Rottweiler DJ Bust</h4>
+        <span>₹500 onwards • PLA (Bronze finish)</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Rottweiler DJ Bust Gentleman')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/home-sweet-home.jpg','Home Sweet Home Lettering','Decorative HOME SWEET HOME 3D lettering sign. Two-color print, wall or shelf display. Great housewarming gift.')">
+      <span class="decor-tag">🔥 Bestseller</span>
+      <img src="images/home-sweet-home.jpg" alt="Home Sweet Home Lettering" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:200px;display:none;"><div class="dp-icon">🏡</div><div class="dp-label">Home Sweet Home</div></div>
+      <div class="decor-overlay">
+        <h4>Home Sweet Home Lettering</h4>
+        <span>₹550 onwards • PLA (2 colors)</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Home Sweet Home Lettering Decoration')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/hex-wall-shelf.jpg','Hexagon Wall Shelf','Geometric hexagonal wall-mount display shelf. Holds small figurines, plants or candles. Resizable to your preference.')">
+      <span class="decor-tag">🕐 Unique</span>
+      <img src="images/hex-wall-shelf.jpg" alt="Hexagon Wall Shelf" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:240px;display:none;"><div class="dp-icon">⬡</div><div class="dp-label">Hexagon Wall Shelf</div></div>
+      <div class="decor-overlay">
+        <h4>Hexagon Wall Shelf</h4>
+        <span>₹300 onwards • PLA / PETG</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Hexagon Wall Shelf')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/vaso-venus.jpg','Venus Mid Ribbed Vase','Elegant ribbed Venus vase with curved silhouette. Available in 120mm–220mm height. Perfect for dried or fresh flower arrangements.')">
+      <span class="decor-tag">✨ New</span>
+      <img src="images/vaso-venus.jpg" alt="Venus Mid Ribbed Vase" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:270px;display:none;"><div class="dp-icon">🏺</div><div class="dp-label">Venus Mid Ribbed Vase</div></div>
+      <div class="decor-overlay">
+        <h4>Venus Mid Ribbed Vase</h4>
+        <span>₹320 onwards • PLA / PETG</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Venus Mid Ribbed Vase')">💬 Enquire</button>
+      </div>
+    </div>
+
+    <div class="decor-item" onclick="openLightbox('images/pawn-vase.jpg','Chess Pawn Vase','Chess pawn-shaped ribbed vase. Available in 120mm to 250mm height. Fits small flowers, succulents or as a standalone decor piece.')">
+      <span class="decor-tag">🎁 Gift Idea</span>
+      <img src="images/pawn-vase.jpg" alt="Chess Pawn Vase" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="decor-placeholder" style="height:280px;display:none;"><div class="dp-icon">♟️</div><div class="dp-label">Chess Pawn Vase</div></div>
+      <div class="decor-overlay">
+        <h4>Chess Pawn Vase</h4>
+        <span>₹450 onwards • PLA / PETG</span>
+        <button class="decor-wa-btn" onclick="event.stopPropagation();waDecor('Chess Pawn Vase')">💬 Enquire</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="decor-upload-hint">
+    <div style="font-size:2.5rem;">📸</div>
+    <h4>Add Your Product Photos Here</h4>
+    <p>Place your images in an <strong style="color:var(--accent)">images/</strong> folder next to index.html using the filenames shown. They load automatically — emoji shows if image is missing.</p>
+    <a href="https://wa.me/917385888199?text=Hi%20MetsInnovative%2C%20I%20want%20to%20add%20a%20new%20custom%20home%20decor%20item." target="_blank" class="btn-outline" style="margin-top:.5rem;">Can't find what you need? Ask us →</a>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightboxDirect()">✕</button>
+  <div class="decor-placeholder" id="lightboxPlaceholder" style="width:320px;height:260px;border-radius:12px;display:none;"><div class="dp-icon" id="lbIcon">🏺</div></div>
+  <img id="lightboxImg" src="" alt="" style="display:none;">
+  <div class="lightbox-info"><h3 id="lightboxTitle"></h3><p id="lightboxDesc"></p></div>
+  <a id="lightboxWa" href="#" target="_blank" class="lightbox-wa">💬 Enquire on WhatsApp</a>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-label">Our Catalog</div>
+  <div class="section-title">All Products</div>
+  <p class="section-sub">Browse our full range of 3D printed parts — Bambu Studio models & exclusive MetsInnovative designs, ready to order.</p>
+  <br>
+  <div class="search-wrap">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Search products…" oninput="filterProducts()">
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('enclosure',this)">Enclosures</button>
+    <button class="filter-btn" onclick="setFilter('drone',this)">Drone Parts</button>
+    <button class="filter-btn" onclick="setFilter('robotics',this)">Robotics</button>
+  </div>
+  <div id="product-count"></div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">Process</div>
+  <div class="section-title">How It Works</div>
+  <p class="section-sub">From enquiry to delivery — a smooth, transparent process every time.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-icon">🛒</div><h3>Browse & Select</h3><p>Pick from our catalog or describe your custom part. We have 50+ ready-to-print models from Bambu Studio and our own designs.</p></div>
+    <div class="step"><div class="step-num">02</div><div class="step-icon">💬</div><h3>Enquire via WhatsApp</h3><p>Chat with us directly on WhatsApp to confirm specs, quantity, material choice, and color. We reply fast.</p></div>
+    <div class="step"><div class="step-num">03</div><div class="step-icon">⚙️</div><h3>We Print & QC</h3><p>Your parts are sliced and printed on Bambu Lab printers. Every piece passes quality inspection before packing.</p></div>
+    <div class="step"><div class="step-num">04</div><div class="step-icon">📦</div><h3>Packed & Delivered</h3><p>Carefully packed and shipped pan-India. Track your order and receive it within 2–5 business days.</p></div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section id="materials">
+  <div class="section-label">What We Use</div>
+  <div class="section-title">Materials Available</div>
+  <p class="section-sub">We stock premium filaments to match every application — from flexible gaskets to high-temp industrial parts.</p>
+  <div class="materials-grid">
+    <div class="material-card"><div class="mat-icon">🟢</div><div class="mat-name">PLA</div><div class="mat-desc">Best for decorative, prototyping, and general use. Biodegradable, easy to print, vibrant colors.</div></div>
+    <div class="material-card"><div class="mat-icon">🔵</div><div class="mat-name">PETG</div><div class="mat-desc">Strong, slightly flexible, chemical resistant. Ideal for functional parts, enclosures, food-safe prints.</div></div>
+    <div class="material-card"><div class="mat-icon">⚫</div><div class="mat-name">ABS</div><div class="mat-desc">High temp resistance, tough, machinable. Used for automotive, electronics housings, and industrial parts.</div></div>
+    <div class="material-card"><div class="mat-icon">🟡</div><div class="mat-name">TPU</div><div class="mat-desc">Flexible rubber-like filament. Great for gaskets, phone cases, shock mounts, drone bumpers.</div></div>
+    <div class="material-card"><div class="mat-icon">⬜</div><div class="mat-name">ASA</div><div class="mat-desc">UV and weather resistant. Perfect for outdoor applications, signage, and automotive parts.</div></div>
+    <div class="material-card"><div class="mat-icon">🔴</div><div class="mat-name">PA / Nylon</div><div class="mat-desc">High strength, wear resistant, low friction. Used for gears, bearings, structural mechanical parts.</div></div>
+  </div>
+</section>
+
+<!-- CUSTOM -->
+<section id="custom">
+  <div class="custom-inner">
+    <div>
+      <div class="section-label">Bespoke Manufacturing</div>
+      <div class="section-title">Need a<br><span style="color:var(--accent)">Custom</span><br>Part?</div>
+      <p class="section-sub" style="margin-bottom:2rem;">Upload your STL, share a sketch, or just describe your idea. We design and print custom enclosures, brackets, jigs, robotic components, and industrial parts to your exact specs.</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.9rem;margin-bottom:2rem;">
+        <li style="display:flex;gap:.8rem;align-items:center;font-size:.95rem;"><span style="color:var(--accent);font-size:1.2rem;">✓</span> Upload your own STL file</li>
+        <li style="display:flex;gap:.8rem;align-items:center;font-size:.95rem;"><span style="color:var(--accent);font-size:1.2rem;">✓</span> Share dimensions & we design for you</li>
+        <li style="display:flex;gap:.8rem;align-items:center;font-size:.95rem;"><span style="color:var(--accent);font-size:1.2rem;">✓</span> Material, color & infill customization</li>
+        <li style="display:flex;gap:.8rem;align-items:center;font-size:.95rem;"><span style="color:var(--accent);font-size:1.2rem;">✓</span> Small batch & bulk orders welcome</li>
+        <li style="display:flex;gap:.8rem;align-items:center;font-size:.95rem;"><span style="color:var(--accent);font-size:1.2rem;">✓</span> Pan-India shipping</li>
+      </ul>
+      <a href="https://wa.me/917385888199?text=Hi%20MetsInnovative%2C%20I%20need%20a%20custom%203D%20printed%20part." target="_blank" class="btn-primary" style="display:inline-block;">Enquire on WhatsApp →</a>
+    </div>
+    <div class="custom-visual">⚙️</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-label">Talk To Us</div>
+      <div class="section-title">Get In Touch</div>
+      <p class="section-sub" style="margin-bottom:3rem;">Have a project in mind? Need a quote? We typically respond within a few hours on WhatsApp.</p>
+      <div class="contact-info">
+        <div class="contact-item"><div class="contact-item-icon">📱</div><div><h4>WhatsApp / Call</h4><p>+91 7385888199<br><small style="color:var(--accent)">Available Mon–Sat, 9AM–7PM IST</small></p></div></div>
+        <div class="contact-item"><div class="contact-item-icon">📧</div><div><h4>Email</h4><p>hello@metsinnovative.in</p></div></div>
+        <div class="contact-item"><div class="contact-item-icon">📍</div><div><h4>Location</h4><p>Pune, Maharashtra, India<br><small style="color:var(--muted)">Pan-India Shipping Available</small></p></div></div>
+      </div>
+    </div>
+    <div class="enquiry-form">
+      <div class="form-title">Send Enquiry</div>
+      <div class="form-row">
+        <div class="form-group"><label>Your Name *</label><input type="text" id="fname" placeholder="Omkar Shinde"></div>
+        <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="fphone" placeholder="+91 98765 43210"></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="femail" placeholder="you@email.com"></div>
+      <div class="form-group">
+        <label>Product / Category *</label>
+        <select id="fproduct">
+          <option value="">— Select Product —</option>
+          <option>ESP32-CAM Enclosure</option><option>Raspberry Pi Case</option><option>Drone Frame / Arms</option>
+          <option>Motor Mount</option><option>Robot Car Chassis</option><option>Servo Bracket</option>
+          <option>Gear Set</option><option>Electronics Box</option><option>Custom Part (My Design)</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Material</label><select id="fmaterial"><option>PLA</option><option>PETG</option><option>ABS</option><option>TPU</option><option>ASA</option><option>Not Sure</option></select></div>
+        <div class="form-group"><label>Quantity</label><input type="number" id="fqty" placeholder="1" min="1"></div>
+      </div>
+      <div class="form-group"><label>Message / Requirements</label><textarea id="fmessage" rows="4" placeholder="Describe your requirements, dimensions, color, deadline…"></textarea></div>
+      <button class="form-submit" onclick="submitEnquiry()">Send Enquiry via WhatsApp →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><span>Mets</span>Innovative</div>
+      <p>Premium 3D printed parts on demand. Bambu Lab quality, custom designs, fast delivery across India.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="#products" onclick="setFilter('enclosure',null)">Enclosures</a>
+      <a href="#products" onclick="setFilter('drone',null)">Drone Parts</a>
+      <a href="#products" onclick="setFilter('robotics',null)">Robotics</a>
+      <a href="#products" onclick="setFilter('iot',null)">IoT Parts</a>
+      <a href="#products" onclick="setFilter('custom',null)">Custom</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#how">How It Works</a><a href="#materials">Materials</a><a href="#custom">Custom Orders</a><a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="https://wa.me/917385888199" target="_blank">WhatsApp Chat</a>
+      <a href="mailto:hello@metsinnovative.in">Email Us</a>
+      <a href="#contact">Send Enquiry</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 MetsInnovative. All rights reserved.</p>
+    <p style="color:var(--accent)">Powered by Mets Inovative 🖨️</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="whatsapp-float" href="https://wa.me/917385888199?text=Hi%20MetsInnovative%2C%20I%20want%20to%20enquire%20about%203D%20printed%20parts." target="_blank">
+  <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16 .5C7.44.5.5 7.44.5 16c0 2.82.74 5.48 2.04 7.8L.5 31.5l7.9-2.06A15.46 15.46 0 0016 31.5c8.56 0 15.5-6.94 15.5-15.5S24.56.5 16 .5zm8.02 21.84c-.33.93-1.64 1.7-2.7 1.93-.72.15-1.66.27-4.82-1.04-4.05-1.66-6.65-5.75-6.85-6.01-.2-.26-1.62-2.16-1.62-4.12 0-1.96 1-2.92 1.36-3.32.33-.37.72-.46.96-.46.24 0 .48.01.69.02.22.01.52-.08.81.62.33.77 1.11 2.73 1.21 2.93.1.2.16.43.03.69-.13.26-.2.42-.39.65-.19.23-.4.51-.57.69-.19.2-.39.41-.17.8.22.39.99 1.63 2.13 2.64 1.46 1.3 2.69 1.7 3.08 1.89.39.19.62.16.85-.1.23-.26.99-1.15 1.25-1.55.26-.4.53-.33.89-.2.36.13 2.32 1.1 2.72 1.3.4.2.67.29.77.46.1.17.1 1.01-.23 1.94z"/></svg>
+</a>
+<div class="wa-tooltip">Chat with us!</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Enquiry sent via WhatsApp!</div>
+
+<script>
+const PRODUCTS = [
+  { id:1,  name:"Arduino Uno Case",       cat:"enclosure", icon:"📷", badge:"new",  img:"images/arduino_uno_case.png",
+    desc:"Compact wall-mount enclosure for Arduino Uno. Ventilated, cable slots.",
+    materials:["PLA","PETG","ABS"], price:"₹120", priceNote:"onwards", isCustom:false,
+    tags:["arduino uno","iot","electronics","box"] },
+
+  { id:2,  name:"ESP32-CAM Enclosure",    cat:"enclosure", icon:"📷", badge:"new",  img:"images/esp32cam.png",
+    desc:"Compact wall-mount enclosure for AI-Thinker ESP32-CAM modules. Ventilated, cable slots, lens port.",
+    materials:["PLA","PETG","ABS"], price:"₹120", priceNote:"onwards", isCustom:false,
+    tags:["esp32","camera","iot","electronics","box"] },
+
+  { id:3,  name:"Raspberry Pi 4 Case",    cat:"enclosure", icon:"🍓", badge:null,   img:"images/raspberrypi_4.png",
+    desc:"Full-featured Raspberry Pi 4 enclosure with VESA mount, active fan duct, port labels.",
+    materials:["PLA","PETG"], price:"₹180", priceNote:"onwards", isCustom:false,
+    tags:["raspberry pi","case","sbc","pi4"] },
+
+  { id:4,  name:"Raspberry Pi Zero Case", cat:"enclosure", icon:"🔲", badge:null,   img:"images/Raspberrypizero.png",
+    desc:"Slim case for Raspberry Pi Zero/Zero W/2W. Snap-fit lid, GPIO access option.",
+    materials:["PLA","PETG"], price:"₹80",  priceNote:"onwards", isCustom:false,
+    tags:["raspberry pi","zero","case","sbc"] },
+
+  { id:5,  name:"Arduino Mega Enclosure", cat:"enclosure", icon:"🟦", badge:null,   img:"images/arduinomega.png",
+    desc:"Rugged DIN-rail or wall-mount box for Arduino Mega 2560 with USB and DC barrel access.",
+    materials:["ABS","PETG"], price:"₹100", priceNote:"onwards", isCustom:false,
+    tags:["arduino","mega","box","electronics"] },
+
+  { id:6,  name:"ESP32 DevKit Enclosure", cat:"enclosure", icon:"📦", badge:null,   img:"images/esp32devkit.png",
+    desc:"Universal enclosure fitting most 38-pin ESP32 DevKit boards. Snap lid with antenna slot.",
+    materials:["PLA","PETG","ABS"], price:"₹90", priceNote:"onwards", isCustom:false,
+    tags:["esp32","devkit","box","iot"] },
+
+  { id:7,  name:"NodeMCU / ESP8266 Case", cat:"enclosure", icon:"📡", badge:null,   img:"images/nodemcu.png",
+    desc:"Slim case for NodeMCU / ESP8266 boards. Wall mount, USB cutout, side ventilation.",
+    materials:["PLA","PETG"], price:"₹70",  priceNote:"onwards", isCustom:false,
+    tags:["nodemcu","esp8266","case","iot"] },
+
+  { id:8,  name:"Arduino Nano Case",      cat:"enclosure", icon:"🔌", badge:null,   img:"images/arduinonano.png",
+    desc:"Slim enclosure for Arduino Nano with screw posts and USB access.",
+    materials:["ASA","PETG"], price:"₹70",  priceNote:"onwards", isCustom:false,
+    tags:["arduino","nano","box","electronics"] },
+
+  { id:9,  name:"Relay Module Box",       cat:"enclosure", icon:"⚡", badge:null,   img:"images/relaymodule.png",
+    desc:"Enclosure for 1, 2, 4 or 8-channel relay modules. DIN clip or wall mount.",
+    materials:["ABS","PLA"], price:"₹110",  priceNote:"per unit", isCustom:false,
+    tags:["relay","electronics","box","automation"] },
+
+  { id:10, name:"Quadcopter Frame Arms",  cat:"drone", icon:"🚁", badge:"new",      img:"images/quadcopter.png",
+    desc:"Replacement / custom arms for 250mm racing quad. M3 standoffs, prop guard slots.",
+    materials:["PETG","Nylon"], price:"₹200", priceNote:"per set of 4", isCustom:false,
+    tags:["drone","quad","arm","250","racing"] },
+
+  { id:11, name:"Ultrasonic Sensor Mount",cat:"drone", icon:"🔩", badge:null,       img:"images/ultrasonic.png",
+    desc:"Precision mount for HC-SR04 and similar ultrasonic sensors.",
+    materials:["PETG","Nylon"], price:"₹60",  priceNote:"per piece", isCustom:false,
+    tags:["drone","sensor","mount","ultrasonic"] },
+
+  { id:12, name:"FPV Drone Frame",        cat:"drone", icon:"🦵", badge:null,       img:"images/fpvdrone.png",
+    desc:"FPV Drone Frame with high quality material, lightweight and crash-resistant.",
+    materials:["PETG","TPU"], price:"₹180",  priceNote:"set", isCustom:false,
+    tags:["drone","fpv","frame","racing"] },
+
+  { id:13, name:"FPV Camera Bracket",     cat:"drone", icon:"📹", badge:null,       img:"images/fpvcamera.png",
+    desc:"Adjustable tilt bracket for RunCam/Caddx FPV cameras. 0–45° tilt range.",
+    materials:["TPU","PETG"], price:"₹80",   priceNote:"per unit", isCustom:false,
+    tags:["fpv","camera","drone","bracket","tilt"] },
+
+  { id:14, name:"Flight Controller Mount",cat:"drone", icon:"🎮", badge:null,       img:"",
+    desc:"Anti-vibration FC mount for 30.5×30.5mm stack. Damped silicone standoffs.",
+    materials:["TPU","PETG"], price:"₹75",   priceNote:"per unit", isCustom:false,
+    tags:["fc","flight controller","mount","drone","stack"] },
+
+  { id:15, name:"Payload Drop Mechanism", cat:"drone", icon:"📮", badge:"new",      img:"",
+    desc:"Servo-actuated payload release for drones. Compatible with 9g–25g servos. Drop capacity up to 500g.",
+    materials:["PETG","PLA"], price:"₹300",  priceNote:"per unit", isCustom:false,
+    tags:["drone","payload","drop","servo","delivery"] },
+
+  { id:16, name:"Propeller Guards (5-in)",cat:"drone", icon:"🛡️", badge:null,      img:"images/propguard.png",
+    desc:"Full-ring prop guards for 5-inch props. Lightweight lattice design, crash-resistant.",
+    materials:["TPU","PETG"], price:"₹120",  priceNote:"set of 4", isCustom:false,
+    tags:["drone","prop","guard","safety","5 inch"] },
+
+  { id:17, name:"GPS Mount Mast",         cat:"drone", icon:"📡", badge:null,       img:"",
+    desc:"Tall GPS mast to lift module above electronics for better compass isolation.",
+    materials:["PETG","PLA"], price:"₹90",   priceNote:"per unit", isCustom:false,
+    tags:["drone","gps","mount","mast","compass"] },
+
+  { id:18, name:"Robot Car Chassis (4WD)",cat:"robotics", icon:"🚗", badge:"new",   img:"images/Robot Car Chassis (4WD).png",
+    desc:"Full 4WD robot car chassis for TT/N20 motors. L298N bay, sensor mounts, caster slot.",
+    materials:["PLA","PETG"], price:"₹350",  priceNote:"full kit", isCustom:false,
+    tags:["robot","car","4wd","chassis","arduino"] },
+
+  { id:19, name:"Servo Bracket MG996R",   cat:"robotics", icon:"🔧", badge:null,    img:"images/servobracket.png",
+    desc:"U-channel servo brackets compatible with MG996R, MG995, and SG90. Arm linkage slots.",
+    materials:["PLA","PETG"], price:"₹50",   priceNote:"per unit", isCustom:false,
+    tags:["servo","bracket","robot","arm","mg996r","sg90"] },
+
+  { id:20, name:"Robotic Arm Links 6-DOF",cat:"robotics", icon:"🦾", badge:"new",   img:"images/roboticarm.png",
+    desc:"Full link set for a 6-DOF desktop robotic arm. MG996R/DS3218 servo compatible.",
+    materials:["PETG","PLA"], price:"₹900",  priceNote:"full set", isCustom:false,
+    tags:["robotic arm","6dof","robot","servo","esp32"] },
+
+  { id:21, name:"Pan-Tilt Camera Mount",  cat:"robotics", icon:"🎥", badge:null,    img:"images/Pan-Tiltcamera.png",
+    desc:"2-axis pan-tilt bracket for SG90/MG90S. Fits ESP32-CAM, Raspberry Pi Camera.",
+    materials:["PLA","PETG"], price:"₹120",  priceNote:"per unit", isCustom:false,
+    tags:["pan","tilt","camera","robot","servo","gimbal"] },
+];
+
+let currentFilter = 'all';
+let currentSearch = '';
+
+function setFilter(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderProducts();
+}
+
+function filterProducts() {
+  currentSearch = document.getElementById('searchInput').value.toLowerCase();
+  renderProducts();
+}
+
+function renderProducts() {
+  const grid    = document.getElementById('productGrid');
+  const countEl = document.getElementById('product-count');
+  const filtered = PRODUCTS.filter(p => {
+    const catMatch    = currentFilter === 'all' || p.cat === currentFilter;
+    const searchMatch = !currentSearch ||
+      p.name.toLowerCase().includes(currentSearch) ||
+      p.desc.toLowerCase().includes(currentSearch) ||
+      p.tags.some(t => t.includes(currentSearch));
+    return catMatch && searchMatch;
+  });
+  countEl.textContent = `Showing ${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+  grid.innerHTML = filtered.map(p => {
+    const thumbHTML = p.img
+      ? `<img class="thumb-img" src="${p.img}" alt="${p.name}" onerror="this.style.display='none';document.getElementById('emoji-${p.id}').style.display='flex'">
+         <span class="thumb-emoji" id="emoji-${p.id}" style="display:none;">${p.icon}</span>`
+      : `<span class="thumb-emoji">${p.icon}</span>`;
+    return `
+    <div class="product-card" onclick="openModal(${p.id})">
+      <div class="product-thumb">
+        ${p.badge === 'new'    ? '<span class="badge-new">New</span>'       : ''}
+        ${p.badge === 'custom' ? '<span class="badge-custom">Custom</span>' : ''}
+        <span class="badge-avail">✓ Available</span>
+        ${thumbHTML}
+      </div>
+      <div class="product-info">
+        <div class="product-cat">${p.cat.toUpperCase()}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-material">${p.materials.map(m=>`<span class="mat-tag">${m}</span>`).join('')}</div>
+        <div class="product-footer">
+          <div>
+            <div class="product-price">${p.price}</div>
+            ${p.priceNote ? `<div class="price-note">${p.priceNote}</div>` : ''}
+          </div>
+          <button class="btn-enquire" onclick="enquireProduct(event,${p.id})">Enquire</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  if (!filtered.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--muted)">
+      <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
+      <div style="font-size:1.1rem;">No products match your search.</div>
+      <div style="margin-top:.5rem;font-size:.9rem;">Try a different keyword or <a href="#contact" style="color:var(--accent);">send a custom enquiry</a>.</div>
+    </div>`;
+  }
+}
+
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modalTitle').textContent = p.name;
+  const imgHtml = p.img
+    ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:200px;object-fit:cover;border-radius:10px;margin-bottom:1rem;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+       <div style="font-size:5rem;text-align:center;margin:1rem 0;display:none;">${p.icon}</div>`
+    : `<div style="font-size:5rem;text-align:center;margin:1rem 0;">${p.icon}</div>`;
+  document.getElementById('modalBody').innerHTML = `
+    ${imgHtml}
+    <p style="color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:1.2rem;">${p.desc}</p>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem;">${p.materials.map(m=>`<span class="mat-tag">${m}</span>`).join('')}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+      <div><div class="product-price">${p.price}</div>${p.priceNote?`<div class="price-note">${p.priceNote}</div>`:''}</div>
+      <span style="background:var(--green);color:#fff;font-size:.75rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;">✓ Available</span>
+    </div>
+    <a href="https://wa.me/917385888199?text=Hi%20MetsInnovative%2C%20I%20want%20to%20enquire%20about%3A%20${encodeURIComponent(p.name)}" target="_blank" class="btn-primary" style="display:block;text-align:center;width:100%;padding:.85rem;">
+      💬 Enquire on WhatsApp
+    </a>`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e) { if (e.target === document.getElementById('modalOverlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+function enquireProduct(e, id) {
+  e.stopPropagation();
+  const p = PRODUCTS.find(x => x.id === id);
+  window.open(`https://wa.me/917385888199?text=${encodeURIComponent('Hi MetsInnovative, I want to enquire about: ' + p.name)}`, '_blank');
+}
+
+function submitEnquiry() {
+  const name    = document.getElementById('fname').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const product = document.getElementById('fproduct').value;
+  const material= document.getElementById('fmaterial').value;
+  const qty     = document.getElementById('fqty').value;
+  const message = document.getElementById('fmessage').value.trim();
+  if (!name || !phone) { alert('Please fill in your name and phone number.'); return; }
+  const text = `Hi MetsInnovative! 👋\n\nNew Enquiry:\nName: ${name}\nPhone: ${phone}\nProduct: ${product||'Not specified'}\nMaterial: ${material}\nQuantity: ${qty||1}\nMessage: ${message||'No additional message'}`;
+  window.open(`https://wa.me/917385888199?text=${encodeURIComponent(text)}`, '_blank');
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function toggleMobileNav() { document.getElementById('mobileNav').classList.toggle('open'); }
+
+function openLightbox(imgSrc, title, desc) {
+  const img = document.getElementById('lightboxImg');
+  const ph  = document.getElementById('lightboxPlaceholder');
+  img.style.display = 'none';
+  ph.style.display  = 'none';
+  img.src = '';
+  document.getElementById('lightboxTitle').textContent = title;
+  document.getElementById('lightboxDesc').textContent  = desc;
+  document.getElementById('lightboxWa').href = `https://wa.me/917385888199?text=${encodeURIComponent('Hi MetsInnovative, I want to order: '+title)}`;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  img.onload  = () => { img.style.display = 'block'; ph.style.display = 'none'; };
+  img.onerror = () => { img.style.display = 'none';  ph.style.display = 'flex'; };
+  img.src = imgSrc;
+}
+function closeLightbox(e) { if (e.target===document.getElementById('lightbox')) closeLightboxDirect(); }
+function closeLightboxDirect() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+function waDecor(name) { window.open(`https://wa.me/917385888199?text=${encodeURIComponent('Hi MetsInnovative, I want to order: '+name)}`,'_blank'); }
+
+function searchMakerWorld() {
+  const query = document.getElementById('mwSearch').value.trim();
+  if (!query) { document.getElementById('mwSearch').focus(); return; }
+  window.open('https://makerworld.com/en/search/models?keyword=' + encodeURIComponent(query), '_blank');
+}
+
+function quickSearch(term) {
+  document.getElementById('mwSearch').value = term;
+  searchMakerWorld();
+}
+
+renderProducts();
+</script>
+</body>
+</html>
